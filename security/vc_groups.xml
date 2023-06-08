@@ -1,0 +1,38 @@
+<odoo>
+    <data noupdate="0">
+
+        <record id="module_category_vc_user" model="ir.module.category">
+            <field name="name">vc_user</field>
+        </record>
+
+        <record id="vc_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="module_category_vc_user"></field>
+        </record>
+
+        <record id="module_category_vc_supervisor" model="ir.module.category">
+            <field name="name">vc_supervisor</field>
+        </record>
+
+        <record id="vc_supervisor" model="res.groups">
+            <field name="name">supervisor</field>
+            <field name="category_id" ref="module_category_vc_supervisor"></field>
+        </record>
+
+
+        <record id="rule_vc_supervisor" model="ir.rule">
+            <field name="name">supervisor see Certificate records only</field>
+            <field name="model_id" ref="model_vc_certificates"></field>
+            <field name="domain_force">[]</field>
+            <field name="groups" eval="[(4,ref('vc_supervisor'))]" />
+        </record>
+
+        <record id="rule_vc_user" model="ir.rule">
+            <field name="name">User see Certificate records only</field>
+            <field name="model_id" ref="model_vc_certificates"></field>
+            <field name="domain_force">[('create_uid','=',user.id)]</field>
+            <field name="groups" eval="[(4,ref('vc_user'))]" />
+        </record>
+
+    </data>
+</odoo>
